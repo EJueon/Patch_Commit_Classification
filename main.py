@@ -22,7 +22,7 @@ class MyWindow(QMainWindow, form_class):
         self.title='커널 취약점 패치 분류 프로그램 v1.0'
         self.setupUi(self)
         self.setWindowTitle(self.title)
-
+        
         # related data
         self.data_filepath = ''
         self.tokenizer_path = './vulpatch-tokenizer'
@@ -122,10 +122,12 @@ class MyWindow(QMainWindow, form_class):
         self.status.setText("모델을 불러왔습니다.")
         time.sleep(3)
         self.status.setText("정확도를 측정중입니다...")
-        count, total, acc = calc_accuracy(self.model, self.data_filepath, self.tokenizer)
-        self.status.setText("정확도를 측정하였습니다.")
+        count, total, acc, vuls = calc_accuracy(self.model, self.data_filepath, self.tokenizer)
+        self.status.setText("정확도 측정을 완료하였습니다.")
         self.model_correct.setText(f'정확도: {acc*100:0.2f}%({count}/{total})')
-        
+        for vul in vuls:
+            item = QListWidgetItem(vul)
+            self.listWidget.addItem(item)
     
     @pyqtSlot()
     def classify_clicked(self):

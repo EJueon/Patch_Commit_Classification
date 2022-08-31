@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>280</width>
-    <height>730</height>
+    <height>712</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -144,36 +144,30 @@
       <property name="maximumSize">
        <size>
         <width>16777215</width>
-        <height>120</height>
+        <height>300</height>
        </size>
       </property>
       <property name="title">
        <string>분류기</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_7">
-       <item row="2" column="0">
-        <widget class="QLabel" name="model_filename">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>20</height>
-          </size>
-         </property>
+       <item row="9" column="0">
+        <widget class="QListWidget" name="listWidget"/>
+       </item>
+       <item row="5" column="0">
+        <widget class="QPushButton" name="classifier_loadbtn">
          <property name="maximumSize">
           <size>
-           <width>100000</width>
+           <width>16777215</width>
            <height>20</height>
           </size>
          </property>
-         <property name="lineWidth">
-          <number>2</number>
-         </property>
          <property name="text">
-          <string>모델 파일명 : </string>
+          <string>불러온 데이터 분류하기</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
+       <item row="6" column="0">
         <widget class="QLabel" name="model_correct">
          <property name="minimumSize">
           <size>
@@ -195,36 +189,8 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QPushButton" name="classifier_loadbtn">
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>20</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>분류기 불러오기</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item>
-     <widget class="QGroupBox" name="result_box">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>300</height>
-       </size>
-      </property>
-      <property name="title">
-       <string>패치 분류</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_6">
-       <item row="0" column="0">
-        <widget class="QLabel" name="fileNameLabel_5">
+       <item row="1" column="0">
+        <widget class="QLabel" name="model_filename">
          <property name="minimumSize">
           <size>
            <width>0</width>
@@ -241,11 +207,55 @@
           <number>2</number>
          </property>
          <property name="text">
-          <string>url 입력 : </string>
+          <string>모델 파일명 : </string>
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
+       <item row="8" column="0">
+        <widget class="QLabel" name="model_filename_2">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>100000</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="lineWidth">
+          <number>2</number>
+         </property>
+         <property name="text">
+          <string>취약점 관련 패치로 예측한 commit no.</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0">
+        <widget class="Line" name="line">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="result_box">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>200</height>
+       </size>
+      </property>
+      <property name="title">
+       <string>패치 분류</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_6">
+       <item row="4" column="0">
         <widget class="QLabel" name="classification_result">
          <property name="minimumSize">
           <size>
@@ -263,11 +273,11 @@
           <number>2</number>
          </property>
          <property name="text">
-          <string>해당 패치 메시지는 ??입니다.</string>
+          <string/>
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
+       <item row="3" column="0">
         <widget class="QPushButton" name="classify_btn">
          <property name="maximumSize">
           <size>
@@ -276,7 +286,7 @@
           </size>
          </property>
          <property name="text">
-          <string>분류하기</string>
+          <string>개별 패치 커밋 메시지 분류하기</string>
          </property>
         </widget>
        </item>
