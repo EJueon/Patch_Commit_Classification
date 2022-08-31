@@ -120,6 +120,7 @@ class MyWindow(QMainWindow, form_class):
                     load_checkpoint(filepath, self.model, optimizer)
 
         self.status.setText("모델을 불러왔습니다.")
+        self.listWidget.clear()
         time.sleep(3)
         self.status.setText("정확도를 측정중입니다...")
         count, total, acc, vuls = calc_accuracy(self.model, self.data_filepath, self.tokenizer)
