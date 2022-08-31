@@ -10,7 +10,7 @@ class CodeDataset(Dataset):
         self.max_len = max_len
         self.data = data
         self.name = self.column(self.data, 'number')
-        self.inputs = self.column(self.data, 'desc')
+        self.inputs = self.column(self.data, 'title', 'desc')
         self.outputs = self.column(self.data, 'label')
         self.tokenizer = tokenizer
         

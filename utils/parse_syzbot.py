@@ -119,9 +119,8 @@ def parse_onepatch(url_list):
         data.append(report)
     return data
     
-def parse_patch():
+def parse_patch(filepath):
     version = 'linux'
-    filepath = './utils/data.pickle.gz'
     url = 'https://syzkaller.appspot.com/upstream/fixed'
     soup = get_soup(url)
     list_table = soup.find_all('table',{'class':'list_table'})[0]
@@ -136,6 +135,8 @@ def parse_patch():
     for title in titles:
         # progress_bar.set_description(f'{cnt}/{total}')
         cnt += 1
+        if cnt % 10 == 0:
+            print(f'{cnt}/{total}')
         report = dict()
         report['report_title'] = title.text
         report['report_url'] = syzbot_base + title.find('a').get('href')
@@ -147,15 +148,14 @@ def parse_patch():
             BC_list.append(report['short_commit'])
             continue
         data.append(report)
-        if cnt % 10 == 0:
-            print(f'{cnt}/{total}')
 
     save_data(filepath, data)
     print(f'{BC_list}')
     return filepath
 
 if __name__ == '__main__':
-    parse_patch()
+    filepath = 'new_data.pickle.gz'
+    parse_patch(filepath)
     #info = get_commit_info('7caac62ed598a196d6ddf8d9c121e12e082cac3a')
     #dump_all(info)
     # print("done")
