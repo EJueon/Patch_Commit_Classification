@@ -5,6 +5,7 @@ import re
 import os
 import pandas as pd
 from transformers import AutoTokenizer
+import random
 
 pattern = ['corruption', 'crash', 'race condition', 'NULL ptr dereference', 'use-after-free', 
            'KASAN', 'caused by NULL', 'dereference', 'uninitialized variable', 'double unlink', 'double free', 'double fetch', 'memory leak', 'leaked-keyring', 'vulnerability', 'vulnerabilities', 'infoleak', 'overflow', 'underflow', 'check length passed',
@@ -92,7 +93,7 @@ def batch_iterator(data):
         feature = ' '.join(data[i]['title'])
         yield data[i]['title']
 
-def vocab_hugginface(data, vocab_size=10000):
+def vocab_hugginface(data, vocab_size=1000):
     batch_size = 32
     new_tokenizer = tokenizer.train_new_from_iterator(batch_iterator(data), 
                                                       vocab_size=vocab_size)
@@ -112,6 +113,7 @@ def save_data(data, savepath, filename):
 
 if __name__ == '__main__':
     data = load_data('syzbot_data.pickle')
+    random.shuffle(data)
     f_len = len(data) // 10
     train_data = data[:f_len * 7]
     valid_data = data[f_len * 7 : f_len * 8]
@@ -122,7 +124,7 @@ if __name__ == '__main__':
     #     print('label: ',t['label'])
     #     print('number: ',t['number'])
     #     input('>>')
-    save_data(train_data, './', 'train_data.pickle.gz')
-    save_data(valid_data, './', 'valid_data.pickle.gz')
-    save_data(test_data, './', 'test_data.pickle.gz')
+    save_data(train_data, './data', 'train_data.pickle.gz')
+    save_data(valid_data, './data', 'valid_data.pickle.gz')
+    save_data(test_data, './data', 'test_data.pickle.gz')
     tokenizer = vocab_hugginface(train_data)

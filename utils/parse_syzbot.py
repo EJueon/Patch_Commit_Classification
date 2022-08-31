@@ -103,6 +103,7 @@ def get_fixed_commit(url_post):
     tmp = soup.find_all('span', {'class':'mono'})[0].text
     return tmp.strip().split()[0]
 
+
 def parse_onepatch(url_list):
     BC_list = list()
     data = list()

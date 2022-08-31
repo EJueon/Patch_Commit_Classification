@@ -2,23 +2,20 @@ from torch.utils.data import Dataset
 import torch
 import numpy as np
 from tensorflow.keras.preprocessing.sequence import pad_sequences
-import preprocess as pre
+
+import utils.preprocess as pre
 
 class CodeDataset(Dataset):
-    def __init__(self, data, tokenizer, vocab_size = 10000, max_len = 256):
-        self.vocab_size = vocab_size
+    def __init__(self, data, tokenizer, max_len = 512):
         self.max_len = max_len
         self.data = data
         self.name = self.column(self.data, 'number')
-        self.inputs = self.column(self.data, 'title', 'desc')
+        self.inputs = self.column(self.data, 'desc')
         self.outputs = self.column(self.data, 'label')
         self.tokenizer = tokenizer
         
     def __len__(self):
         return len(self.outputs)
-    
-    def vocab(self):
-        return self.vocab_size
     
     def column(self, data, tag1, tag2=None):
         if tag2:
