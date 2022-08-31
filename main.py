@@ -96,7 +96,7 @@ class MyWindow(QMainWindow, form_class):
     
     
     @pyqtSlot()
-    def classifier_load_clicked(self, filepath='./utils/data/model.pt'):
+    def classifier_load_clicked(self, filepath='./data/model.pt'):
         self.status.setText("모델을 불러오는 중입니다..........")
         from utils.classify import _load, load_checkpoint, calc_accuracy
         from utils.model import LSTM
