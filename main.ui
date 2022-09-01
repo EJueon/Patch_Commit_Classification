@@ -19,7 +19,7 @@
      <x>10</x>
      <y>10</y>
      <width>421</width>
-     <height>741</height>
+     <height>762</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -144,7 +144,7 @@
       <property name="maximumSize">
        <size>
         <width>16777215</width>
-        <height>350</height>
+        <height>450</height>
        </size>
       </property>
       <property name="title">
@@ -152,7 +152,20 @@
       </property>
       <layout class="QGridLayout" name="gridLayout_7">
        <item row="9" column="0">
-        <widget class="QListWidget" name="listWidget"/>
+        <widget class="QListWidget" name="listWidget">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>100</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>150</height>
+          </size>
+         </property>
+        </widget>
        </item>
        <item row="5" column="0">
         <widget class="QPushButton" name="classifier_loadbtn">
