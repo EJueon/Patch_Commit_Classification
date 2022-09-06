@@ -1,4 +1,5 @@
 from tqdm import tqdm
+import time
 import pickle, gzip 
 import copy
 import re
@@ -42,8 +43,9 @@ def load_data(filepath):
             progress_bar.set_description(f'{cnt}/{total}')
             if data['number'] in num_set:
                 continue
-            else:
-                num_set.add(data['number'])
+            if len(data['title'])<2 or len(data['desc'])<5:
+                continue
+            num_set.add(data['number'])
             title = data['title']
             desc = data['desc']
             number = data['number']
@@ -59,9 +61,9 @@ def load_data(filepath):
         features = []
         total = len(dataset)
         progress_bar = tqdm(dataset, bar_format='{desc:<10}{percentage:3.0f}%|{bar:10}')
-        
         for cnt, data in enumerate(progress_bar):
             progress_bar.set_description(f'{cnt}/{total}')
+            
             title = data[tags[0]][tags[1]]
             desc = data[tags[0]][tags[2]]
             number = data[tags[0]][tags[3]]
@@ -123,9 +125,9 @@ def save_csv(data, savepath, filename):
     csv_f = filepath + '.csv'
     try:
         df = pd.DataFrame(data)
-        nan_value = float("NaN")
-        df.replace("", nan_value, inplace=True)
-        df.dropna(inplace=True)
+        # nan_value = float("NaN")
+        # df.replace("", nan_value, inplace=True)
+        # df.dropna(inplace=True)
         print(f"Saved Data Count : {df.shape[0]}")
         df.to_csv(csv_f, header=True, index=False, sep=',')
         return True
@@ -135,21 +137,26 @@ def save_csv(data, savepath, filename):
 
 
 if __name__ == '__main__':
-    data = load_data('../data/syzbot_data.pickle')
-    save_data(data, '../data', '_syzbot_data.pickle.gz')
-    random.shuffle(data)
-    f_len = len(data) // 10
-    train_data = data[:f_len * 7]
-    valid_data = data[f_len * 7 : f_len * 8]
-    test_data = data[f_len * 8 : len(data)]
+    data = load_data('../data/_valid_data.pickle.gz')
+    print(len(data))
+    # save_data(data, '../data', '_syzbot_data.pickle.gz')
+    # time.sleep(10)
+    # data = load_data('../data/_syzbot_data.pickle.gz')
+    # save_data(data, '../data', '_syzbot_data.pickle.gz') 
+    # save_csv(data, '../data', '_syzbot_data')
+    # random.shuffle(data)
+    # f_len = len(data) // 10
+    # train_data = data[:f_len * 7]
+    # valid_data = data[f_len * 7 : f_len * 8]
+    # test_data = data[f_len * 8 : len(data)]
 
-    save_data(train_data, '../data', '_train_data.pickle.gz')
-    save_data(valid_data, '../data', '_valid_data.pickle.gz')
-    save_data(test_data, '../data', '_test_data.pickle.gz')
+    # save_data(train_data, '../data', '_train_data.pickle.gz')
+    # save_data(valid_data, '../data', '_valid_data.pickle.gz')
+    # save_data(test_data, '../data', '_test_data.pickle.gz')
     
-    save_csv(train_data, '../data', '_train_data')
-    save_csv(valid_data, '../data', '_valid_data')
-    save_csv(test_data, '../data', '_test_data')
+    # save_csv(train_data, '../data', '_train_data')
+    # save_csv(valid_data, '../data', '_valid_data')
+    # save_csv(test_data, '../data', '_test_data')
     # tokenizer = vocab_hugginface(train_data)
     
     # data = load_data('../data/_train_data.pickle.gz')
