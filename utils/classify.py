@@ -79,7 +79,7 @@ def _save(save_path, model):
 def calc_accuracy(model, data_path, tokenizer, batch_size=1):
     test = pre.load_data(data_path)
     test_dataset = CodeDataset(test, tokenizer)
-    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
+    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=0)
     count, total, acc, vuls, ret = evaluate(model, test_loader, tokenizer)
     pre.save_csv(ret, './data', 'train_result')
     
