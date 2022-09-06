@@ -30,7 +30,10 @@ def evaluate(model, test_loader, tokenizer, batch_size = 1, version='title', thr
     count = 0
 
     vuls = []
+    results = []
     for name, pred, true in zip(names, y_pred, y_true):
+        temp = {'number': name[0], 'prediction': pred, 'label': true}
+        results.append(temp)
         if pred == 1:
             vuls.append(name[0])
         if pred == true:
@@ -41,7 +44,7 @@ def evaluate(model, test_loader, tokenizer, batch_size = 1, version='title', thr
     print(f'{count}/{total}')
     print(f'accuracy : {accuracy*100:.2f}')
 
-    return count, total, accuracy, vuls
+    return count, total, accuracy, vuls, results
 
 def save_checkpoint(save_path, model, optimizer, valid_loss):
     if save_path == None:
@@ -77,7 +80,9 @@ def calc_accuracy(model, data_path, tokenizer, batch_size=1):
     test = pre.load_data(data_path)
     test_dataset = CodeDataset(test, tokenizer)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
-    count, total, acc, vuls = evaluate(model, test_loader, tokenizer)
+    count, total, acc, vuls, ret = evaluate(model, test_loader, tokenizer)
+    pre.save_csv(ret, './data', 'test_result')
+    
     return count, total, acc, vuls
 
 
