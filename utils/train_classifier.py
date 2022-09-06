@@ -193,11 +193,11 @@ def main():
     
     # train, valid, test = pre.load_data(filepath)
 
-    train = pre.load_data('./data/train_data.pickle.gz')
-    valid = pre.load_data('./data/valid_data.pickle.gz')
-    test = pre.load_data('./data/test_data.pickle.gz')
+    train = pre.load_data('../data/_train_data.pickle.gz')
+    valid = pre.load_data('../data/_valid_data.pickle.gz')
+    test = pre.load_data('../data/_test_data.pickle.gz')
 
-    tokenizer = pre.load_tokenizer('./vulpatch-tokenizer')
+    tokenizer = pre.load_tokenizer('../vulpatch-tokenizer')
     vocab_size = tokenizer.vocab_size
     maxlen = 512
 
@@ -218,7 +218,7 @@ def main():
           valid_loader=valid_loader,
           batch_size = batch_size, 
           num_epochs=50,
-          file_path='./data')
+          file_path='../data')
 
     
     evaluate(model, test_loader, tokenizer)
