@@ -1,4 +1,4 @@
-# Patch_Commit_Classification
+# Patch_Commit_Classification based Attention GRU
 ![ex](./assets/01.png)
 
 ## Quick Start
